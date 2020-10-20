@@ -1,0 +1,10 @@
+version: "3.0"
+services:
+    stanfordnlp:
+        build:
+            context: ./StanfordCoreNLP
+            dockerfile: Dockerfile
+    athene_system:
+        build:
+            context: ./athene_system
+            dockerfile: Dockerfile
