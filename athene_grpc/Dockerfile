@@ -1,0 +1,45 @@
+FROM ubuntu:18.04
+
+RUN apt update; apt install -y wget \
+                               curl \
+                               git \
+                               vim \
+                               g++ \
+                               clang \
+                               cmake \
+                               libtool \
+                               autoconf \
+                               zlib1g-dev \
+                               pkg-config \
+                               libc++-dev \
+                               python3-dev \
+                               python3-pip \
+                               libudev-dev \
+                               libgtest-dev \
+                               libgflags-dev \
+                               build-essential \
+                               libusb-1.0.0-dev \
+                               software-properties-common
+
+RUN cd /root && \
+    git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc && \
+    cd grpc && \
+    git submodule update --init && \
+    mkdir -p cmake/build && \
+    cd cmake/build && \
+    cmake ../.. && \
+    make -j$(nproc) && \
+    make install && \
+    ldconfig
+
+ADD . /root
+
+WORKDIR /root
+
+RUN python3 -m grpc_tools.protoc \
+              -I. \
+              --python_out=. \
+              --grpc_python_out=. \
+              ./service_spec/athenefnc.proto
+
+ENTRYPOINT ["python3", "grpc_service.py", "13322"]
