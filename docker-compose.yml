@@ -4,7 +4,18 @@ services:
         build:
             context: ./StanfordCoreNLP
             dockerfile: Dockerfile
+        hostname: stanfordnlp
     athene_system:
         build:
             context: ./athene_system
             dockerfile: Dockerfile
+        hostname: athene_syste
+        ports:
+            - "13321:13321"
+    athene_grpc:
+        build:
+            context: ./athene_grpc
+            dockerfile: Dockerfile
+        hostname: athene_grpc
+        ports:
+            - "13322:13322"
