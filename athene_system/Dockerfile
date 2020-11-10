@@ -4,22 +4,7 @@ RUN apt update; apt install -y wget \
                                curl \
                                git \
                                vim \
-                               g++ \
-                               clang \
-                               cmake \
-                               libtool \
-                               autoconf \
-                               zlib1g-dev \
-                               pkg-config \
-                               libc++-dev \
-                               python3-dev \
-                               python3-pip \
-                               libudev-dev \
-                               libgtest-dev \
-                               libgflags-dev \
-                               build-essential \
-                               libusb-1.0.0-dev \
-                               software-properties-common
+                               g++
 
 
 RUN wget https://repo.anaconda.com/archive/Anaconda3-2020.07-Linux-x86_64.sh
@@ -73,4 +58,8 @@ RUN cd /tmp && \
 
 RUN echo "source activate env_python3.4\nexport LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-7.5/lib64" >> /root/.bashrc
 
-ENTRYPOINT ["python3.4", "pipeline.py", "13321"]
+ADD run.sh /root/athene_system/fnc
+
+WORKDIR /root/athene_system/fnc
+
+ENTRYPOINT ["/bin/bash", "/root/athene_system/fnc/run.sh"]

@@ -21,7 +21,7 @@ RUN apt update; apt install -y wget \
                                libusb-1.0.0-dev \
                                software-properties-common
 
-RUN cd /root && \
+RUN cd /tmp && \
     git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc && \
     cd grpc && \
     git submodule update --init && \
@@ -31,6 +31,10 @@ RUN cd /root && \
     make -j$(nproc) && \
     make install && \
     ldconfig
+
+RUN python3 -m pip install -U pip
+
+RUN python3 -m pip install grpcio-tools requests
 
 ADD . /root
 
