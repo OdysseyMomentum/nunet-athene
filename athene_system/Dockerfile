@@ -37,7 +37,8 @@ RUN bash -c "source /root/anaconda3/bin/activate;\
 
 RUN mkdir -p /root/athene_system/data/embeddings/google_news/
 
-ADD GoogleNews-vectors-negative300.bin.gz /root/athene_system/data/embeddings/google_news/
+RUN wget https://gitlab.com/nunet/fake-news-detection/data-storage/-/raw/master/GoogleNews-vectors-negative300.bin.gz -P /root/athene_system/data/embeddings/google_news/
+#ADD GoogleNews-vectors-negative300.bin.gz /root/athene_system/data/embeddings/google_news/
 
 RUN mkdir -p /root/athene_system/data/ppdb && \
     cd /root/athene_system/data/ppdb && \
