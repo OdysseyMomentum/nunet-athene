@@ -16,7 +16,7 @@ class GRPCserver(pb2_grpc.AtheneStanceClassificationServicer):
     def stance_classify(self, req, ctxt):
         headline = req.headline
         body = req.body
-        lbld_pred = json.loads(requests.post("http://localhost:13321",
+        lbld_pred = json.loads(requests.post("http://athene_system:13321",
                     headers={'Content-Type': 'application/json'},
                     data=json.dumps({'headline' : headline, 'body': body})).text)
         stance_pred = pb2.Stance()

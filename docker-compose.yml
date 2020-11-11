@@ -9,7 +9,7 @@ services:
         build:
             context: ./athene_system
             dockerfile: Dockerfile
-        hostname: athene_syste
+        hostname: athene_system
         ports:
             - "13321:13321"
     athene_grpc:
