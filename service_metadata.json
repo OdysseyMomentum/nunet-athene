@@ -1,0 +1,24 @@
+{
+"version": 1,
+"display_name": "ATHENE Service",
+"encoding": "proto",
+"service_type": "grpc",
+"model_ipfs_hash": "QmdFxqJYJytdKnjh3YNKRR9t1HUKrZGoY4tXoEzeUpJJq3",
+"mpe_address": "0x8FB1dC8df86b388C7e00689d1eCb533A160B4D0C",
+"groups": [
+    {
+        "group_name": "default_group",
+        "endpoints": [
+            "http://195.201.197.25:7001"
+        ],
+        "pricing": [
+            {
+                "price_model": "fixed_price",
+                "price_in_cogs": 1,
+                "default": true
+            }
+        ]
+    }
+],
+"assets": {}
+}
