@@ -5,6 +5,7 @@ sys.path.append("./service_spec")
 import athenefnc_pb2 as pb2
 import athenefnc_pb2_grpc as pb2_grpc
 
+server_port = os.environ['ATHENE_GRPC_ADD'] # port ATHENE service runs
 
 def get_stance(channel):
     stub = pb2_grpc.AtheneStanceClassificationStub(channel)
@@ -65,5 +66,5 @@ def get_stance(channel):
     print("Unrelated: ", res.unrelated)
 
 
-with grpc.insecure_channel('localhost:13322') as channel:
+with grpc.insecure_channel(server_port) as channel:
     get_stance(channel)

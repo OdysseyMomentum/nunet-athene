@@ -1,23 +1,25 @@
 import sys, os.path as path
 import json
+import os
 
 import requests
 
 import grpc
 import time
 from concurrent import futures
+
 sys.path.append("./service_spec")
-import athene_grpc.service_spec.athenefnc_pb2_grpc as pb2_grpc
-import athene_grpc.service_spec.athenefnc_pb2 as pb
+import athenefnc_pb2_grpc as pb2_grpc
+import athenefnc_pb2 as pb2
 
 
-server_port = None
+server_port = os.environ['ATHENE_GRPC_ADD'] # port ATHENE service runs
 
 class GRPCserver(pb2_grpc.AtheneStanceClassificationServicer):
     def stance_classify(self, req, ctxt):
         headline = req.headline
-        body = req.body
-        lbld_pred = json.loads(requests.post("http://athene_system:13321",
+        body = req.bodiy
+        lbld_pred = json.loads(requests.post("http://demo.nunet.io:13321",
                     headers={'Content-Type': 'application/json'},
                     data=json.dumps({'headline' : headline, 'body': body})).text)
         stance_pred = pb2.Stance()
@@ -29,7 +31,6 @@ class GRPCserver(pb2_grpc.AtheneStanceClassificationServicer):
 
 
 if __name__ == '__main__':
-    server_port = 7008
     grpc_server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     pb2_grpc.add_AtheneStanceClassificationServicer_to_server(GRPCserver(), grpc_server)
     grpc_server.add_insecure_port('[::]:' + server_port)
