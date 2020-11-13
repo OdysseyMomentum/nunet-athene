@@ -12,7 +12,7 @@ sys.path.append("./athene_grpc/service_spec")
 import athenefnc_pb2_grpc as pb2_grpc
 import athenefnc_pb2 as pb2
 
-server_port = "7008" #os.environ['SERVICE_PORT'] # port ATHENE service runs
+server_port = os.environ['SERVICE_PORT'] # port ATHENE service runs
 
 class GRPCserver(pb2_grpc.AtheneStanceClassificationServicer):
     def stance_classify(self, req, ctxt):
