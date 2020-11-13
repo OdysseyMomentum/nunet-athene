@@ -8,12 +8,11 @@ import grpc
 import time
 from concurrent import futures
 
-sys.path.append("./service_spec")
+sys.path.append("./athene_grpc/service_spec")
 import athenefnc_pb2_grpc as pb2_grpc
 import athenefnc_pb2 as pb2
 
-
-server_port = os.environ['ATHENE_GRPC_ADD'] # port ATHENE service runs
+server_port = "7008" #os.environ['SERVICE_PORT'] # port ATHENE service runs
 
 class GRPCserver(pb2_grpc.AtheneStanceClassificationServicer):
     def stance_classify(self, req, ctxt):

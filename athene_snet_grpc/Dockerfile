@@ -10,7 +10,7 @@ RUN apt-get update && \
 
 RUN apt-get install -y python3 python3-pip
 
-ENV ATHENE_GRPC_ADD="demo.nunet.io:13322"
+ENV ATHENE_GRPC_ADD="13322"
 ENV SINGNET_REPOS=/opt/singnet
 ENV ORGANIZATION_ID="odyssey-org"
 ENV ORGANIZATION_NAME="odyssey"

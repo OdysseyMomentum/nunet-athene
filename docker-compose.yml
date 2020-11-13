@@ -14,7 +14,7 @@ services:
             - "13321:13321"
     athene_grpc:
         build:
-            context: ./athene_grpc
+            context: ./athene_snet_grpc
             dockerfile: Dockerfile
         hostname: athene_grpc
         ports:
