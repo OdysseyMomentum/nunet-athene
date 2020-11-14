@@ -63,4 +63,4 @@ ADD run.sh /root/athene_system/fnc
 
 WORKDIR /root/athene_system/fnc
 
-ENTRYPOINT ["/bin/bash", "/root/athene_system/fnc/run.sh"]
+#ENTRYPOINT ["/bin/bash", "/root/athene_system/fnc/run.sh", "13321"]

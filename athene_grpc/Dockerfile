@@ -46,4 +46,4 @@ RUN python3 -m grpc_tools.protoc \
               --grpc_python_out=. \
               ./service_spec/athenefnc.proto
 
-ENTRYPOINT ["python3", "grpc_service.py", "13322"]
+#ENTRYPOINT ["python3", "grpc_service.py", "13322"]
