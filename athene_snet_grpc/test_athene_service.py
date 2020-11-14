@@ -7,21 +7,22 @@ import athene_grpc.service_spec.athenefnc_pb2 as pb2
 from athene_grpc import registry
 
 if __name__ == "__main__":
-	try:
-		test_flag = False
-		if len(sys.argv) == 2:
-			if sys.argv[1] == "auto":
-				test_flag = True
+    try:
+        test_flag = False
+        if len(sys.argv) == 2:
+            if sys.argv[1] == "auto":
+                test_flag = True
 
-		# UCLNLP service - Arithmetic
-		endpoint = input("Endpoint (195.201.197.25:{}): ".format(registry["grpc_service"]["grpc"])) if not test_flag else ""
-		if endpoint == "":
-			endpoint = "195.201.197.25:{}".format(registry["grpc_service"]["grpc"])
+        # UCLNLP service - Arithmetic
+        endpoint = input("Endpoint (localhost:{}): ".format(
+            registry["grpc_service"]["grpc"])) if not test_flag else ""
+        if endpoint == "":
+            endpoint = "localhost:{}".format(registry["grpc_service"]["grpc"])
 
-		grpc_method = "stance_classify"
+        grpc_method = "stance_classify"
 
-		headline = 'Melania Trump cancels plans to attend Tuesday rally citing Covid recovery'
-		body = '''Melania Trump is canceling her first campaign appearance in
+        headline = 'Melania Trump cancels plans to attend Tuesday rally citing Covid recovery'
+        body = '''Melania Trump is canceling her first campaign appearance in
 		months because she is not feeling well as she continues to recover from
 		Covid-19.  She had been set to join President Donald Trump's rally in
 		Pennsylvania on Tuesday night, but she has decided not to go. "Mrs. Trump
@@ -70,18 +71,18 @@ if __name__ == "__main__":
 		member of the reelection campaign, goes to Nevada and Arizona; Donald Trump
 		Jr. will be at events in North Carolina and Pennsylvania.'''
 
-		# Open a gRPC channel
-		channel = grpc.insecure_channel("{}".format(endpoint))
-		stub = pb2_grpc.AtheneStanceClassificationStub(channel)
-		inp = pb2.InputData(headline=headline, body=body)
+        # Open a gRPC channel
+        channel = grpc.insecure_channel("{}".format(endpoint))
+        stub = pb2_grpc.AtheneStanceClassificationStub(channel)
+        inp = pb2.InputData(headline=headline, body=body)
 
-		if grpc_method == "stance_classify":
-			response = stub.stance_classify(inp)
-			print(response)
-		else:
-			print("Invalid method!")
-			exit(1)
-			
-	except Exception as e:
-		print(e)
-		exit(1)
+        if grpc_method == "stance_classify":
+            response = stub.stance_classify(inp)
+            print(response)
+        else:
+            print("Invalid method!")
+            exit(1)
+
+    except Exception as e:
+        print(e)
+        exit(1)

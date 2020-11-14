@@ -1,11 +1,12 @@
 import sys
 import grpc
+import os
 
 sys.path.append("./service_spec")
 import athenefnc_pb2 as pb2
 import athenefnc_pb2_grpc as pb2_grpc
 
-server_port = "localhost:7008" # port ATHENE service runs
+server_port = "localhost:" + os.environ['SERVICE_PORT'] # port ATHENE service runs
 
 def get_stance(channel):
     stub = pb2_grpc.AtheneStanceClassificationStub(channel)

@@ -10,7 +10,6 @@ RUN apt-get update && \
 
 RUN apt-get install -y python3 python3-pip
 
-ENV ATHENE_GRPC_ADD="13322"
 ENV SINGNET_REPOS=/opt/singnet
 ENV ORGANIZATION_ID="odyssey-org"
 ENV ORGANIZATION_NAME="odyssey"
@@ -27,6 +26,8 @@ RUN tar -xvzf grpcurl_1.1.0_linux_x86_64.tar.gz
 RUN chmod +x grpcurl
 RUN mv grpcurl /usr/local/bin/grpcurl
 
+EXPOSE 7001
+EXPOSE 7008
 
 COPY . /${SINGNET_REPOS}/athene
 WORKDIR /${SINGNET_REPOS}/athene

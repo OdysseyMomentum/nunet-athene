@@ -12,6 +12,7 @@ sys.path.append("./athene_grpc/service_spec")
 import athenefnc_pb2_grpc as pb2_grpc
 import athenefnc_pb2 as pb2
 from resutils import *
+
 server_port = os.environ['SERVICE_PORT'] # port ATHENE service runs
 
 class GRPCserver(pb2_grpc.AtheneStanceClassificationServicer):
@@ -21,7 +22,7 @@ class GRPCserver(pb2_grpc.AtheneStanceClassificationServicer):
             start_time=time.time()
             cpu_start_time=telemetry.cpu_ticks()
         except:
-            pass
+            print("telemetry is not working")
         headline = req.headline
         body = req.body
         lbld_pred = json.loads(requests.post("http://demo.nunet.io:13321",
@@ -39,9 +40,8 @@ class GRPCserver(pb2_grpc.AtheneStanceClassificationServicer):
             net_used=telemetry.block_in()
             telemetry.call_telemetry(str(cpu_used),str(memory_used),str(net_used),str(time_taken))
         except:
-            pass  
+            print("telemetry is not working")
         return stance_pred
-
 
 if __name__ == '__main__':
     grpc_server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
