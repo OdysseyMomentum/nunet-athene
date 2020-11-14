@@ -22,6 +22,12 @@ ENV DAEMON_PORT="7001"
 ENV DAEMON_HOST="0.0.0.0"
 ENV USER_ID="Amante"
 
+RUN wget https://github.com/fullstorydev/grpcurl/releases/download/v1.1.0/grpcurl_1.1.0_linux_x86_64.tar.gz
+RUN tar -xvzf grpcurl_1.1.0_linux_x86_64.tar.gz
+RUN chmod +x grpcurl
+RUN mv grpcurl /usr/local/bin/grpcurl
+
+
 COPY . /${SINGNET_REPOS}/athene
 WORKDIR /${SINGNET_REPOS}/athene
 
