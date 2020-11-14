@@ -46,4 +46,9 @@ RUN python3 -m grpc_tools.protoc \
               --grpc_python_out=. \
               ./service_spec/athenefnc.proto
 
+RUN wget https://github.com/fullstorydev/grpcurl/releases/download/v1.1.0/grpcurl_1.1.0_linux_x86_64.tar.gz
+RUN tar -xvzf grpcurl_1.1.0_linux_x86_64.tar.gz
+RUN chmod +x grpcurl
+RUN mv grpcurl /usr/local/bin/grpcurl
+
 ENTRYPOINT ["python3", "grpc_service.py", "13322"]

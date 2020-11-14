@@ -16,6 +16,12 @@ server_port = os.environ['SERVICE_PORT'] # port ATHENE service runs
 
 class GRPCserver(pb2_grpc.AtheneStanceClassificationServicer):
     def stance_classify(self, req, ctxt):
+        try:
+            telemetry=resutils()
+            start_time=time.time()
+            cpu_start_time=telemetry.cpu_usage()
+        except:
+            pass
         headline = req.headline
         body = req.bodiy
         lbld_pred = json.loads(requests.post("http://demo.nunet.io:13321",
@@ -26,6 +32,14 @@ class GRPCserver(pb2_grpc.AtheneStanceClassificationServicer):
         stance_pred.disagree = float(lbld_pred['disagree'])
         stance_pred.discuss = float(lbld_pred['discuss'])
         stance_pred.unrelated = float(lbld_pred['unrelated'])
+        try:
+            memory_used=telemetry.memory_usage()
+            time_taken=start_time-time.time()
+            cpu_used=cpu_start_time-telemetry.cpu_ticks()
+            net_used=telemetry.block_in()
+            telemetry.call_telemetry(cpu_used,memory_used,net_used,time_taken)
+    	except:
+            pass  
         return stance_pred
 
 
