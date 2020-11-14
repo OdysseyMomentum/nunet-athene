@@ -18,4 +18,6 @@ services:
             dockerfile: Dockerfile
         hostname: athene_grpc
         ports:
+            - "7001:7001"
+            - "7008:7008"
             - "13322:13322"

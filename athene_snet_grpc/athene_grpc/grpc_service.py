@@ -17,7 +17,8 @@ server_port = os.environ['SERVICE_PORT'] # port ATHENE service runs
 class GRPCserver(pb2_grpc.AtheneStanceClassificationServicer):
     def stance_classify(self, req, ctxt):
         headline = req.headline
-        body = req.bodiy
+        print("one")
+        body = req.body
         lbld_pred = json.loads(requests.post("http://demo.nunet.io:13321",
                     headers={'Content-Type': 'application/json'},
                     data=json.dumps({'headline' : headline, 'body': body})).text)
